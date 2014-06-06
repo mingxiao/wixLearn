@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="9fdaeb3a-0a8d-427a-a773-a68dc75f5e03" UpgradeCode="b98c3db7-28e5-4ff5-8261-49d1f00cea20" Version="1.0.0.0" Language="1033" Name="FooApp" Manufacturer="FooCorp">
+        <Package InstallerVersion="300" Compressed="yes"/>
+        <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
+
+        <!-- Step 1: Define the directory structure -->
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="APPLICATIONROOTDIRECTORY" Name="FooApp"/>
+            </Directory>
+        </Directory>
+
+        <!-- Step 2: Add files to your installer package -->
+        <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+            <Component Id="myapplication.exe" Guid="0adbe605-6243-40ef-b892-e102ca0759b1">
+                <File Id="myapplication.exe" Source="MySourceFiles\OdriveOpen.exe" KeyPath="yes" Checksum="yes"/>
+            </Component>
+            <Component Id="documentation.html" Guid="5c81668b-6a31-47f2-9502-c42c5c707a78">
+                <File Id="documentation.html" Source="MySourceFiles\documentation.html" KeyPath="yes"/>
+            </Component>
+        </DirectoryRef>
+
+        <!-- Step 3: Tell WiX to install the files -->
+        <Feature Id="MainApplication" Title="FooApp" Level="1">
+            <ComponentRef Id="myapplication.exe" />
+            <ComponentRef Id="documentation.html" />
+        </Feature>
+    </Product>
+</Wix>
